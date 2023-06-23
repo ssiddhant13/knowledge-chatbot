@@ -1,3 +1,4 @@
+import os
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
@@ -18,7 +19,7 @@ If you don't know the answer, say that you don't know, don't try to make up an a
 
 Question: {question}
 Helpful Answer:"""
-DATABASE_FOLDER = 'embedding_db';
+DATABASE_FOLDER = 'embedding_db'
 
 
 class ChatClient: 

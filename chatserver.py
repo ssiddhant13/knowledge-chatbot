@@ -1,20 +1,20 @@
+import os
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import ConfluenceLoader
 
-OPENAI_API_KEY = "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"
-CONFLUENCE_API_KEY ="GaqErCvUt3iQMt2oYpJq2gLSqW8wj5GcJ6QLKb"
 DATABASE_FOLDER = 'embedding_db';
 CONFLUENCE_SPACE = "CMEKB";
 CONFLUENCE_USER = "yash.kulkarni";
+
 
 class ChatServer:
     def load_documents_from_confluence():
         loader = ConfluenceLoader(
             url="https://confluence.internal.salesforce.com", 
             username=CONFLUENCE_USER, 
-            api_key=CONFLUENCE_API_KEY, 
+            api_key=os.getenv("CONFLUENCE_API_KEY"), 
             confluence_kwargs={"verify_ssl": False}
         )
         documents = loader.load(space_key= CONFLUENCE_SPACE, include_attachments=True, limit=50)
