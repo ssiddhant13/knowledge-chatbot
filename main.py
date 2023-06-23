@@ -12,4 +12,11 @@ def server():
 
 def client():
     cc = ChatClient()
-    print(cc.chat("Ask your questions ?"))
+
+    while(True):
+        query = input(">> You >> ")
+        # print("DBG:: Asking this Q: " + query)
+        
+        response = cc.chat(query)
+        # print("DBG:: Answered!")
+        print(">> AI >> " + response["answer"])
