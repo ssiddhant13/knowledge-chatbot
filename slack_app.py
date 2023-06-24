@@ -17,9 +17,8 @@ thread_to_chat_client = {}
 
 
 @app.message()
-def say_hello(message, say):
+def reply_to_any_message(message, say):
     logger.debug(message)
-    user = message['user']
 
     if not message.get("thread_ts"):
         ts = message.get("ts")
@@ -29,9 +28,12 @@ def say_hello(message, say):
     say(":waiting-resp:", thread_ts=thread_ts)
 
     chat_client = thread_to_chat_client.get(thread_ts)
-    chat_response = generate_reply(message.get("text"), chat_client)
-
-    say(chat_response, thread_ts=thread_ts)
+    if not chat_client:
+        say("Sorry, this chat thread has been closed. Please initiate a new chat thread.", thread_ts=thread_ts)
+        return
+    
+    chat_reply = generate_reply(message.get("text"), chat_client)
+    say(chat_reply, thread_ts=thread_ts)
 
 
 def generate_reply(query_text, chat_client):

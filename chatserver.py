@@ -4,9 +4,9 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import ConfluenceLoader
 
-DATABASE_FOLDER = 'embedding_db';
-CONFLUENCE_SPACE = "CMEKB";
-CONFLUENCE_USER = "yash.kulkarni";
+DATABASE_FOLDER = 'embedding_db'
+CONFLUENCE_SPACE = "CMEKB"
+CONFLUENCE_USER = "yash.kulkarni"
 
 
 class ChatServer:
@@ -18,7 +18,7 @@ class ChatServer:
             confluence_kwargs={"verify_ssl": False}
         )
         documents = loader.load(space_key= CONFLUENCE_SPACE, include_attachments=True, limit=50)
-        return documents;
+        return documents
 
 
     def save_documents_to_db(documents): 
