@@ -45,12 +45,17 @@ def generate_reply(query_text, chat_client):
 
 
 def extract_sources(chat_response):
-    source_text = "\n\n*Sources*\n"
+    list_of_source_text = []
     for source_doc in chat_response["source_documents"]:
         doc_title = source_doc.metadata["title"]
         doc_link = source_doc.metadata["source"]
-        source_text += f"• <{doc_link}|{doc_title}>\n"
-    return source_text
+        formatted_source_text = f"• <{doc_link}|{doc_title}>\n"
+
+        if formatted_source_text not in list_of_source_text:
+            list_of_source_text.append(formatted_source_text)
+    
+    sources_text = "\n\n*Sources*\n" + "".join(list_of_source_text)
+    return sources_text
 
 
 if __name__ == "__main__":
