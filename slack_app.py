@@ -29,9 +29,10 @@ def reply_to_any_message(message, say):
 
     chat_client = thread_to_chat_client.get(thread_ts)
     if not chat_client:
-        say("Sorry, this chat thread has been closed. Please initiate a new chat thread.", thread_ts=thread_ts)
+        say("Sorry, this chat thread has been closed. Please initiate a new chat thread.",
+            thread_ts=thread_ts)
         return
-    
+
     chat_reply = generate_reply(message.get("text"), chat_client)
     say(chat_reply, thread_ts=thread_ts)
 
@@ -53,9 +54,11 @@ def extract_sources(chat_response):
 
         if formatted_source_text not in list_of_source_text:
             list_of_source_text.append(formatted_source_text)
-    
-    sources_text = "\n\n*Sources*\n" + "".join(list_of_source_text)
-    return sources_text
+
+    logger.info(list_of_source_text)
+    if len(list_of_source_text) == 0:
+        return ""
+    return "\n\n*Sources*\n" + "".join(list_of_source_text)
 
 
 if __name__ == "__main__":
